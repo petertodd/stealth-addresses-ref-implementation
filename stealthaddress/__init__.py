@@ -6,6 +6,9 @@ import bitcoin.core
 import bitcoin.core.key
 import bitcoin.wallet
 
+import bitcoin.core.script as script
+
+
 class StealthAddressError(ValueError):
     pass
 
@@ -23,8 +26,13 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         """Return True if the scan pubkey is reused as a spend pubkey"""
         return bool(self[0] & self.REUSE_SCAN_FOR_SPEND_OPTION)
 
-    def __new__(cls, s):
-        self = super(StealthAddress, cls).__new__(cls, s)
+    def __init__(self, s):
+        """Initialize from address string"""
+
+        # Note that we don't actually have to do anything with our argument;
+        # __new__() already did the heavy-lifting. We just need to take the
+        # data encoded by the address and initialize the various instance
+        # attributes.
 
         if len(self) < 33:
             raise StealthAddressError('Stealth address truncated at scan pubkey')
@@ -39,7 +47,7 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
 
             self.spend_pubkeys = []
             for j in range(m):
-                self.spend_pubkeys.append(bitcoin.core.key.CPubKey(self[j:j+33]))
+                self.spend_pubkeys.append(bitcoin.core.key.CPubKey(self[i:i+33]))
                 i += 33
 
             self.n = self[i]
@@ -78,14 +86,12 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         if not self.all_spend_pubkeys:
             raise StealthAddressError('No spend pubkeys specified!')
 
-        if len(self.all_spend_pubkeys) > cls.MAX_SPEND_PUBKEYS:
+        if len(self.all_spend_pubkeys) > self.MAX_SPEND_PUBKEYS:
             raise StealthAddressError('Too many spend pubkeys; got %d, max allowed is %d' % \
                                       (len(self.all_spend_pubkeys), MAX_SPEND_PUBKEYS))
 
         if not (0 < self.n <= len(self.all_spend_pubkeys)):
             raise StealthAddressError('n must be 0 < n <= # of spend pubkeys (including scan pubkey, if reused as spend)')
-
-        return self
 
 
     @classmethod
@@ -112,13 +118,19 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         # the error
         spend_pubkeys = spend_pubkeys[0:256]
 
+        # canonicalize order
+        spend_pubkeys = sorted(spend_pubkeys)
+
         if n is None:
             n = len(spend_pubkeys)
-        if reuse_scan_for_spend:
-            n += 1
+            if reuse_scan_for_spend:
+                n += 1
         if not (0 < n <= cls.MAX_SPEND_PUBKEYS):
             raise StealthAddressError('n must be in range 0 < n <= MAX_SPEND_PUBKEYS; got %d' % n)
 
+        # As we're encoding the address data directly and passing it through
+        # the usual machinery __init__() will be called, which has all the
+        # validation and instance attribute initialization machinery.
         buf = (bytes([option_flags])
                + scan_pubkey
                + bytes([len(spend_pubkeys)])
@@ -129,7 +141,46 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
 
 
     def to_scriptPubKey(self):
-        raise NotImplementedError
+        raise NotImplementedError("You can not turn a StealthAddress directly into a scriptPubKey")
+
+
+    @staticmethod
+    def derive_pubkey(spend_pubkey, shared_secret):
+        """Derive a pubkey from a spend pubkey and the shared secret"""
+        # FIXME: Need to implement ECC addition
+        return bitcoin.core.key.CPubKey(spend_pubkey)
+
+    def make_payee_scriptPubKey(self, shared_secret):
+        """Make the payee's scriptPubKey based on the shared secret
+
+        Returns (scriptPubKey, redeemScript). If P2SH is not used, redeemScript
+        will be set to None.
+        """
+
+        if len(self.all_spend_pubkeys) == 1:
+            spend_pubkey = list(self.all_spend_pubkeys)[0]
+            derived_pubkey = self.derive_pubkey(spend_pubkey, shared_secret)
+
+            scriptPubKey = script.CScript([script.OP_DUP, script.OP_HASH160,
+                                           bitcoin.core.Hash160(derived_pubkey),
+                                           script.OP_EQUALVERIFY, script.OP_CHECKSIG])
+
+            return (scriptPubKey, None)
+
+        elif len(self.all_spend_pubkeys) > 1:
+            derived_pubkeys = sorted([self.derive_pubkey(spend_pubkey, shared_secret)
+                                        for spend_pubkey in self.all_spend_pubkeys])
+
+            redeemScript = script.CScript([self.n]
+                                          + derived_pubkeys
+                                          + [len(derived_pubkeys), script.OP_CHECKMULTISIG])
+
+            scriptPubKey = redeemScript.to_p2sh_scriptPubKey()
+            return (scriptPubKey, redeemScript)
+
+        else:
+            assert False
+
 
     def pay(self, tx_template=None):
         pass
