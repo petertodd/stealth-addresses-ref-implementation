@@ -81,6 +81,9 @@ class CScriptOp(int):
         else:
             return False
 
+    def __str__(self):
+        return repr(self)
+
     def __repr__(self):
         if self in OPCODE_NAMES:
             return OPCODE_NAMES[self]
@@ -863,6 +866,8 @@ def RawSignatureHash(script, txTo, inIdx, hashtype):
     instead.
     """
     HASH_ONE = b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+    # FIXME: delete OP_CODESEPARATOR here with FindAndDelete()
 
     if inIdx >= len(txTo.vin):
         return (HASH_ONE, "inIdx %d out of range (%d)" % (inIdx, len(txTo.vin)))

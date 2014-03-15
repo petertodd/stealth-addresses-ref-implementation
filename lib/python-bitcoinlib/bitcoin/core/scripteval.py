@@ -115,6 +115,8 @@ def _CastToBool(s):
 
 
 def FindAndDelete(script, sig):
+    # FIXME: incorrect
+
     # Since the Satoshi CScript.FindAndDelete() works on a binary level we have
     # to do that too. Notably FindAndDelete() will not delete if the PUSHDATA
     # used in the script is non-standard.
@@ -125,7 +127,7 @@ def FindAndDelete(script, sig):
 
 
 def _CheckSig(sig, pubkey, script, txTo, inIdx, err_raiser):
-    key = bitcoin.core.key.CKey()
+    key = bitcoin.core.key.CECKey()
     key.set_pubkey(pubkey)
 
     if len(sig) == 0:
