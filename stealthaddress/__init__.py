@@ -60,11 +60,11 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
 
         # Check pubkeys after reading all data; we want to display truncation
         # errors first.
-        if not self.scan_pubkey.IsFullyValid():
+        if not self.scan_pubkey.is_fullyvalid:
             raise StealthAddressError('Invalid scan pubkey')
 
         for spend_pubkey in self.spend_pubkeys:
-            if not spend_pubkey.IsFullyValid():
+            if not spend_pubkey.is_fullyvalid:
                 raise StealthAddressError('Invalid spend pubkey %s' %
                                           bitcoin.core.b2x(spend_pubkey))
 
@@ -105,10 +105,10 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
 
         All pubkeys must be of the compressed type.
         """
-        if not scan_pubkey.IsCompressed():
+        if not scan_pubkey.is_compressed:
             raise StealthAddressError('scan_pubkey must be compressed')
         for spend_pubkey in spend_pubkeys:
-            if not spend_pubkey.IsCompressed():
+            if not spend_pubkey.is_compressed:
                 raise StealthAddressError('All spend_pubkeys must be compressed')
 
         option_flags = cls.REUSE_SCAN_FOR_SPEND_OPTION if reuse_scan_for_spend else 0
