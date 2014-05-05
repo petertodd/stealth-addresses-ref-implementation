@@ -1,0 +1,114 @@
+[
+    [
+        "shortest possible, no prefix, reusing scan for spend",
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzEwUmB72r",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": [],
+            "all_spend_pubkeys": ["0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 1,
+            "reuse_scan_for_spend": true
+        }
+    ],
+    [
+        "shortest non-zero prefix, 0",
+        "46Tp3vwteujsC51xchpWapNhwAYLUj5uHVBxgAnHdjuPPQV98weXWUrTh9C",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": [],
+            "all_spend_pubkeys": ["0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71"],
+            "prefix_length": 1,
+            "prefix": "00",
+            "m": 1,
+            "reuse_scan_for_spend": true
+        }
+    ],
+    [
+        "shortest non-zero prefix, 0",
+        "46Tp3vwteujsC51xchpWapNhwAYLUj5uHVBxgAnHdjuPPQV98weXWUrTh9C",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": [],
+            "all_spend_pubkeys": ["0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71"],
+            "prefix_length": 1,
+            "prefix": "00",
+            "m": 1,
+            "reuse_scan_for_spend": true
+        }
+    ],
+    [
+        "separate scan and spend pubkeys",
+        "vJmxunhK9g9QxVGTUfRFqGhwq8VLiC8izRsuBSxhX1cWAKFVfqf2LSEGtDYasU2NgFFJLJWX337BysncX9jBXtiSHsrxpNojkUjhyL",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 1,
+            "reuse_scan_for_spend": false
+        }
+    ],
+    [
+        "separate scan and spend pubkeys, 1-of-2",
+        "2Ctqy69RhoorfzHs5nBSymLsSF7h3nbzx8QRbpV7mx6WxRpXVCwTrroKCx73uGKAQKACRoKK4EjqrxW4VJmqGuo4fGhC3CRDM2Gs5weroBqwDy31yZ667mog6ApR4qAW7iMkRueDhLoPKAr8yMkw",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                              "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                                  "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 1,
+            "reuse_scan_for_spend": false
+        }
+    ],
+    [
+        "separate scan and spend pubkeys, 2-of-2",
+        "2Ctqy69RhoorfzHs5nBSymLsSF7h3nbzx8QRbpV7mx6WxRpXVCwTrroKCx73uGKAQKACRoKK4EjqrxW4VJmqGuo4fGhC3CRDM2Gs5weroBqwDy31yZ667mog6ApR4qAW7iMkRueDhLoPKfn7usVs",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                              "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                                  "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 2,
+            "reuse_scan_for_spend": false
+        }
+    ],
+    [
+        "separate scan and spend pubkeys, with scan reused",
+        "vK4eErdfiFhDrm3srt9UiBGL1wd62mtZxDEhgfoKLMMNtmWzWPCnxdzHwtSgCPwJ4qazv6NiHGsgnPRXkyftvjstkpWn65dWKSr5tA",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+                                  "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 1,
+            "reuse_scan_for_spend": true
+        }
+    ],
+    [
+        "2-of-3 with scan reused",
+        "2CuDqRTAFi74U286wfWVwsc1Rdj3M185gvbsmRhQv2ujzPHhh86wtWqkjGs2ibGWmc7S7CXFvqDQAj5rdfza4J1zZ4GcoDLzkUkp7mP3E4H2bcxyBLqDTG1SSLGXCCQ7WKSLzNmjNy3YSKpJWhsQ",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                              "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+                                  "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+                                  "03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 0,
+            "prefix": "",
+            "m": 2,
+            "reuse_scan_for_spend": true
+        }
+    ]
+]

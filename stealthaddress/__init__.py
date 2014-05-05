@@ -15,7 +15,7 @@ class StealthAddressError(ValueError):
 class StealthAddress(bitcoin.wallet.CBitcoinAddress):
     """A Stealth Address"""
 
-    BASE58_PREFIX = 255
+    BASE58_PREFIX = 42
 
     # Due to 520 byte limit on P2SH scriptPubKeys
     MAX_SPEND_PUBKEYS = 15
@@ -34,26 +34,57 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         # data encoded by the address and initialize the various instance
         # attributes.
 
-        if len(self) < 33:
-            raise StealthAddressError('Stealth address truncated at scan pubkey')
+        if len(self) < 1:
+            raise StealthAddressError('Stealth address truncated at options')
 
-        i = 1 # options is in index 0
+        i = 1
         try:
             self.scan_pubkey = bitcoin.core.key.CPubKey(self[i:i+33])
-            i += 33
+            self.scan_pubkey[32] # force a failure if scan_pubkey is too short
+        except IndexError:
+            raise StealthAddressError('Stealth address truncated at scan_pubkey')
 
-            m = self[i]
-            i += 1
+        i += 33
 
+        try:
+            n = self[i]
+        except IndexError:
+            raise StealthAddressError('Stealth address truncated at n')
+        i += 1
+
+        try:
             self.spend_pubkeys = []
-            for j in range(m):
+            for j in range(n):
                 self.spend_pubkeys.append(bitcoin.core.key.CPubKey(self[i:i+33]))
+                self.spend_pubkeys[-1][32] # force a failure if spend_pubkey is too short
                 i += 33
 
-            self.n = self[i]
+        except IndexError:
+            raise StealthAddressError('Stealth address truncated at spend pubkeys')
+
+
+        try:
+            self.m = self[i]
             i += 1
         except IndexError:
-            raise StealthAddressError('Stealth address truncated')
+            raise StealthAddressError('Stealth address truncated at m')
+
+        try:
+            self.prefix_length = self[i]
+            i += 1
+        except IndexError:
+            raise StealthAddressError('Stealth address truncated at prefix_length')
+
+        len_prefix_in_bytes = 0
+        if self.prefix_length > 0:
+            len_prefix_in_bytes = int(self.prefix_length/8)+1
+        try:
+            self.prefix = self[i:i+len_prefix_in_bytes]
+            if len_prefix_in_bytes:
+                self.prefix[len_prefix_in_bytes-1]
+            i += len_prefix_in_bytes
+        except IndexError:
+            raise StealthAddressError('Stealth address truncated at prefix')
 
         # Additional data at the end of an address *is* allowed for forwards
         # compatibility with new options.
@@ -69,7 +100,7 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
                                           bitcoin.core.b2x(spend_pubkey))
 
         # Check if spend_pubkeys were in sorted order; we don't want to make
-        # stealth addresses mutable.
+        # stealth addresses mutable without a good reason.
         if not sorted(self.spend_pubkeys) == self.spend_pubkeys:
             raise StealthAddressError('Spend pubkeys not in canonical sorted order')
 
@@ -88,23 +119,39 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
 
         if len(self.all_spend_pubkeys) > self.MAX_SPEND_PUBKEYS:
             raise StealthAddressError('Too many spend pubkeys; got %d, max allowed is %d' % \
-                                      (len(self.all_spend_pubkeys), MAX_SPEND_PUBKEYS))
+                                      (len(self.all_spend_pubkeys), self.MAX_SPEND_PUBKEYS))
 
-        if not (0 < self.n <= len(self.all_spend_pubkeys)):
-            raise StealthAddressError('n must be 0 < n <= # of spend pubkeys (including scan pubkey, if reused as spend)')
+        if not (0 < self.m <= len(self.all_spend_pubkeys)):
+            raise StealthAddressError('m must be 0 < m <= # of spend pubkeys (including scan pubkey, if reused as spend)')
 
 
     @classmethod
-    def from_pubkeys(cls, scan_pubkey, spend_pubkeys=(), n=None, reuse_scan_for_spend=True):
-        """Create stealth addres directly from pubkeys
+    def from_pubkeys(cls, scan_pubkey, spend_pubkeys=(),
+                     prefix_length=0, prefix=b'',
+                     m=None, reuse_scan_for_spend=True):
+        """Create stealth address directly from pubkeys
 
         scan_pubkey          - Pubkey to scan for payments
         spend_pubkeys        - Iterable of pubkeys required to spend the payment
-        n                    - # of spend pubkeys required, defaults to all of them
+        prefix_length        - Length of prefix, in bits. (default 0)
+        prefix               - The prefix itself. (default b'')
+        m                    - # of spend pubkeys required, defaults to all of them
         reuse_scan_for_spend - Reuse the scan pubkey as a spend pubkey (default True)
 
         All pubkeys must be of the compressed type.
         """
+        if not (0 <= prefix_length <= 255):
+            raise StealthAddressError('Invalid prefix length; must be between 0 and 255 inclusive; got %r' % prefix_length)
+
+        len_prefix_in_bytes = 0
+        if prefix_length > 0:
+            len_prefix_in_bytes = int(prefix_length/8)+1
+        if len_prefix_in_bytes != len(prefix):
+            raise StealthAddressError('prefix_length does not match given prefix')
+
+        self.prefix_length = prefix_length
+        self.prefix = prefix
+
         if not scan_pubkey.is_compressed:
             raise StealthAddressError('scan_pubkey must be compressed')
         for spend_pubkey in spend_pubkeys:
@@ -121,12 +168,12 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         # canonicalize order
         spend_pubkeys = sorted(spend_pubkeys)
 
-        if n is None:
-            n = len(spend_pubkeys)
+        if m is None:
+            m = len(spend_pubkeys)
             if reuse_scan_for_spend:
-                n += 1
-        if not (0 < n <= cls.MAX_SPEND_PUBKEYS):
-            raise StealthAddressError('n must be in range 0 < n <= MAX_SPEND_PUBKEYS; got %d' % n)
+                m += 1
+        if not (0 < m <= cls.MAX_SPEND_PUBKEYS):
+            raise StealthAddressError('m must be in range 0 < m <= MAX_SPEND_PUBKEYS; got %d' % n)
 
         # As we're encoding the address data directly and passing it through
         # the usual machinery __init__() will be called, which has all the
@@ -135,7 +182,7 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
                + scan_pubkey
                + bytes([len(spend_pubkeys)])
                + b''.join(spend_pubkeys)
-               + bytes([n]))
+               + bytes([m]))
 
         return cls.from_bytes(buf, cls.BASE58_PREFIX)
 

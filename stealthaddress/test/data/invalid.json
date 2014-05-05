@@ -1,0 +1,102 @@
+[
+    [
+        "truncated",
+        "Stealth address truncated at options",
+        "5rMUosj"
+    ],
+    [
+        "truncated",
+        "Stealth address truncated at scan_pubkey",
+        "Mv6XSQGJ"
+    ],
+    [
+        "truncated",
+        "Stealth address truncated at n",
+        "URXXPt9tJoVRVtCX5eGEqHgMUSeJdtsTGs83Ln3DGNLPFEJHb88nE"
+    ],
+    [
+        "truncated at spend pubkeys, with n=1",
+        "Stealth address truncated at spend pubkeys",
+        "363Fj9znDTaCT8UyqmVUG48chN8Beqqwgy2E5LHnm8qAZBogsRY62fN"
+    ],
+    [
+        "truncated at m, with reuse_scan_for_spend true",
+        "Stealth address truncated at m",
+        "363ubbR9Xhs1ofgSKA93f6kRFaottGqepP7uAof33q4s481mc8Q4Tqo"
+    ],
+    [
+        "truncated at prefix_length, with reuse_scan_for_spend true",
+        "Stealth address truncated at prefix_length",
+        "ADHq9guaeXMkYyj4j9LWjANe3NDz1Jujv8dTGGvt3VA3vmxPt2r7N9VA"
+    ],
+    [
+        "truncated at prefix, prefix_length=1, with reuse_scan_for_spend true",
+        "Stealth address truncated at prefix",
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzEwbuZeSH"
+    ],
+    [
+        "truncated at prefix, prefix_length=7, with reuse_scan_for_spend true",
+        "Stealth address truncated at prefix",
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzExFMcFV2"
+    ],
+    [
+        "truncated at prefix, prefix_length=8 with reuse_scan_for_spend true",
+        "Stealth address truncated at prefix",
+        "46Tp3vwteujsC51xchpWapNhwAYLUj5uHVBxgAnHdjuPPQV98weazfqUy8J"
+    ],
+    [
+        "truncated at prefix_length",
+        "Stealth address truncated at prefix_length",
+        "D5Ydz4YRBFf7YDFFF2AdBgwDvEHLGMbLhbwm7Gb4FMUGqS3GJ5KYmmLBnG9Du8N3N4yRwh1LBVxSypaUVgTQLuK6aW1wENu4SuCi8"
+    ],
+    [
+        "truncated at prefix, prefix_length=1",
+        "Stealth address truncated at prefix",
+        "vK4eErdfiFhDrm3srt9UiBGL1wd62mtZxDEhgfoKLMMNtmWzWN4sEafgamqHw5VsRzY56PaTfLojfnzkMb9Y2qtscs58N3eLrbbrZt"
+    ],
+    [
+        "m = 0",
+        "m must be 0 < m <= # of spend pubkeys (including scan pubkey, if reused as spend)",
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzESVuUGwQ"
+    ],
+    [
+        "m > n",
+        "m must be 0 < m <= # of spend pubkeys (including scan pubkey, if reused as spend)",
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzFSLaVUQW"
+    ],
+    [
+        "spend pubkeys not sorted",
+        "Spend pubkeys not in canonical sorted order",
+        "2CuDqRTAFi74U286wfWVwsc1Rdj3M185gvbsmRhQv2ujzPHhh88SL53ncT4KmRVMJhjYd91PH3wRgvkQC5Yr629xKvwuxH7YkBmsMMU35CRKvc5SJaFo7iZCSSNsSNsJrAassXFRTHnzgF6Gch4Y"
+    ],
+    [
+        "spend duplicates scan",
+        "Duplicate spend pubkey 0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+        "vK4eErdfiFhDrm3srt9UiBGL1wd62mtZxDEhgfoKLMMNtmWzWNuV2xWRFLEG733Kwmw1cg9pJYa3s4ajDSMvjdTr9pafQkAoaFTG2s"
+    ],
+    [
+        "duplicated spends",
+        "Duplicate spend pubkey 02302cb590d63b4585af8e1cea0b35bf256f4da388a907c106ba3447ab68a12555",
+        "2CuDqRTAFi74U286wfWVwsc1Rdj3M185gvbsmRhQv2ujzPHhh86wtWqkjGs2ibGWmc7S7CXFvqDQAj5rdfza4J1zZ4GcoDLycZ2koA1vcg1iACL88R1Wf1PWNP9vmQziyxYT1MdmwKKWSfGgV6P4"
+    ],
+    [
+        "reuse_scan_for_spend=false with no spend_pubkeys",
+        "No spend pubkeys specified!",
+        "hf2ZmHN5vbqwoGycVCSc8Qy9vwmW3Y1B7sh1eWWmPiWqqRHrUJEtF6xED"
+    ],
+    [
+        "16 pubkeys specified (15 spend + reuse specified)",
+        "Too many spend pubkeys; got 16, max allowed is 15",
+        "hoBcpH1ZzqGZPYYxWyoNgphTF7ciceWd76KdpY9a9uncukCnpVFSgdhrdUDXE6qFxQ5hoa6mngkQP18e6CFFdjqxoXUYq7bKw8YeGE4ouKCwAgkAeWoekrj9Zp6wXGNPihbBrPrbYABBDnvMqchTLaDufZmcWL2rGzJQhENsD4FzyXhCUAAMBCxmicCVAganSX73oWSkWxDvNcTHMS2tHXvhmLmKo29ieFsi9ysoaKCo43rGZ733eCSJ4aoSoUfUX8aug38E7wtTwGbCRdg9ff2KZtTdyBfTitBHQ2me5Htk3o9GiV2jyHDrewJwhuqcw97rnHZUosja3DDVhBbbVTWkaHn3KEhSY2upuTB8MGyKXF4H6qEABRdMY1ZNzwKSSTwWwFCLZRZbcuQZphRishe3Sjg5YWPJspdMtt5rXDdkdv1mCisTnhsScY2LpsTLWUzfgLo7baL5QZUbtRJdTFkDkqBgcDUszH1qJZDhcTH5MHZirEJ4J8JWSSJwvvXJui3vufkt5AcszgvMhD4F8ofCGjJA2JNipqDLowN8qFoLJdVjoyDdansZNjeFtP8kwnUV4aGXgA6yB2anGzEtqRXvMA3kzDHS4YQu1Bm6SkvXhZ3aH7nVaFWGzy5yQdp5UY2swti5e4Xgs6k5F8n59RL7detqoxEKvEewap3aHVXnDBKq1ghQ7BUdux9WnC1TMmP6VyzoDdzFNDsPqJnau7TFzatEi"
+    ],
+    [
+        "16 pubkeys specified",
+        "Too many spend pubkeys; got 16, max allowed is 15",
+        "vVBUydnuzEKjtmmU8xD7oxWLxSyJCYn9kvNqq5ZzU7mRL37gHTdvbi6MzHUz6UAX7HHRTbg9h9LpgUyYLBqbacAXH4F5E1zT6T5txBGQMtRXSobBKzwY3aRMiuNHxm9oD2GJ2J5EUn5gc61CbCiGePVoJTUMjRxejo27SfqSXwbm9Mqgoki2AHgtyPAp4mpCWGZXQytF9nRLPyrVUNTRqCLdPMs6rkUB2mzHt3WWtXco8Z7NCyap2tTkcrfnVWJXVtSMzwm6VKHZjuiuN54SVw4zrHQEd7GmX6Qc5VSJQtfzhBPLbHCm4XarD2APuwtCtsXsFSdDFFsZyWSjNSxoYmTqLq2KQZiEnJtu6jhkbhKwZ7Phws5CdmyiAnZ1GjqxAnEETkd6BaxZyxPQfuatwGhNe1kS1BbMuBNN3RT43xERgZjT8uzMyQAeYfMidpQimYdXHhbpwY5AsQzAJdvwhX9b5wsttLxHHp7PuqGP4WWUaSVzXekLHYWKfJwdPjGbHU7CL2GEuxMpLSQeRekWrkEBeGPA4Cvriow22FyWMysr4jLiL45i3SyZKv9H27u174Z2HSbucPd9aoJ7iLJWEKRkJecBxP3EbihvsGpd5HuDrJzxy2xgdfJ4rWWBBnPFfA38947GqtnCHV9eebv1vcdarGFaNtjafNVYLqhoc8hBd5xEdkSYydA5YqmmQmCzYM3xKvPsaWJkF16cTWfHS2ge35mHzjwpF1JjvXKbzFKWaNpRi3uSs8CziqRWdKHPHSXc3nPtbn"
+    ],
+    [
+        "FIXME: add tests for invalid pubkeys",
+        "Stealth address truncated at options",
+        "5rMUosj"
+    ]
+]
