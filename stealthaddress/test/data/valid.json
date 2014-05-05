@@ -52,6 +52,32 @@
         }
     ],
     [
+        "separate scan and spend pubkeys, prefix = 0000 0000",
+        "54HTTmzgw7Hn8jumDs6a4U4Kj1S45zp96LUofK7aqqThhi7YyYRkptnMb74NQVkH4gDt7WCHHZzJKU3AKn5XBVMFtdVVXN7FMZBgRyjC",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 8,
+            "prefix": "00",
+            "m": 1,
+            "reuse_scan_for_spend": false
+        }
+    ],
+    [
+        "separate scan and spend pubkeys, prefix = 0000 0000 0000 0000",
+        "JuVdoBbdFpm4DAPtBn7avJRfeQuad4B4iYyix6x4NYtregTv8ZiGSPZBsXjsUht1uE7rbhrnt8buSWLY9sxxDJ8Qit4ku2AafJkqtLyj6",
+        {
+            "scan_pubkey": "0378d430274f8c5ec1321338151e9f27f4c676a008bdf8638d07c0b6be9ab35c71",
+            "spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "all_spend_pubkeys": ["03edd6b6574ea82d4af500301d9a2a0097702921274e19e390e6c7885e0a694a2d"],
+            "prefix_length": 16,
+            "prefix": "0000",
+            "m": 1,
+            "reuse_scan_for_spend": false
+        }
+    ],
+    [
         "separate scan and spend pubkeys, 1-of-2",
         "2Ctqy69RhoorfzHs5nBSymLsSF7h3nbzx8QRbpV7mx6WxRpXVCwTrroKCx73uGKAQKACRoKK4EjqrxW4VJmqGuo4fGhC3CRDM2Gs5weroBqwDy31yZ667mog6ApR4qAW7iMkRueDhLoPKAr8yMkw",
         {

@@ -35,14 +35,14 @@
         "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzEwbuZeSH"
     ],
     [
-        "truncated at prefix, prefix_length=7, with reuse_scan_for_spend true",
-        "Stealth address truncated at prefix",
-        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzExFMcFV2"
-    ],
-    [
         "truncated at prefix, prefix_length=8 with reuse_scan_for_spend true",
         "Stealth address truncated at prefix",
-        "46Tp3vwteujsC51xchpWapNhwAYLUj5uHVBxgAnHdjuPPQV98weazfqUy8J"
+        "hfFHXM95WczbE9NfT1o8D6NWVSgJcN3nRWftvRJpHyGwvMRVzExMSBLHT"
+    ],
+    [
+        "truncated at prefix, prefix_length=16 with reuse_scan_for_spend true",
+        "Stealth address truncated at prefix",
+        "46Tp3vwteujsC51xchpWapNhwAYLUj5uHVBxgAnHdjuPPQV98weeypNtxoR"
     ],
     [
         "truncated at prefix_length",

@@ -24,7 +24,7 @@ class Test_StealthAddress(unittest.TestCase):
             except StealthAddressError as err:
                 self.assertEqual(str(err), expected_exception)
                 continue
-            self.fail('Should have raised %r' % expected_exception)
+            self.fail('Test %r should have raised %r' % (comment, expected_exception))
 
     def test_valid(self):
         for comment, valid, expected_attributes in load_test_vector('valid.json'):

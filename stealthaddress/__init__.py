@@ -26,6 +26,15 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         """Return True if the scan pubkey is reused as a spend pubkey"""
         return bool(self[0] & self.REUSE_SCAN_FOR_SPEND_OPTION)
 
+    @property
+    def prefix_length_in_bytes(self):
+        """Return prefix length in bytes
+
+        That is, the number of bytes required to hold all the bits of the
+        prefix.
+        """
+        return int(self.prefix_length / 8) + (1 if self.prefix_length % 8 else 0)
+
     def __init__(self, s):
         """Initialize from address string"""
 
@@ -75,14 +84,11 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         except IndexError:
             raise StealthAddressError('Stealth address truncated at prefix_length')
 
-        len_prefix_in_bytes = 0
-        if self.prefix_length > 0:
-            len_prefix_in_bytes = int(self.prefix_length/8)+1
         try:
-            self.prefix = self[i:i+len_prefix_in_bytes]
-            if len_prefix_in_bytes:
-                self.prefix[len_prefix_in_bytes-1]
-            i += len_prefix_in_bytes
+            self.prefix = self[i:i+self.prefix_length_in_bytes]
+            if self.prefix_length_in_bytes > 0:
+                self.prefix[self.prefix_length_in_bytes-1]
+            i += self.prefix_length_in_bytes
         except IndexError:
             raise StealthAddressError('Stealth address truncated at prefix')
 
@@ -143,10 +149,7 @@ class StealthAddress(bitcoin.wallet.CBitcoinAddress):
         if not (0 <= prefix_length <= 255):
             raise StealthAddressError('Invalid prefix length; must be between 0 and 255 inclusive; got %r' % prefix_length)
 
-        len_prefix_in_bytes = 0
-        if prefix_length > 0:
-            len_prefix_in_bytes = int(prefix_length/8)+1
-        if len_prefix_in_bytes != len(prefix):
+        if self.prefix_length_in_bytes != len(prefix):
             raise StealthAddressError('prefix_length does not match given prefix')
 
         self.prefix_length = prefix_length
